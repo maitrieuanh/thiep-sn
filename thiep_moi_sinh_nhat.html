@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiệp mời sinh nhật</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #fbe7ff 0%, #ffd6e8 100%);
+            color: #4a2c63;
+        }
+
+        .container {
+            position: relative;
+            max-width: 700px;
+            margin: 40px auto;
+            padding: 160px 30px 30px;
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 28px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.14);
+            overflow: hidden;
+        }
+
+        .container::before,
+        .container::after {
+            content: '';
+            position: absolute;
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(255, 221, 242, 0.8), transparent 55%);
+            pointer-events: none;
+        }
+
+        .container::before {
+            top: -90px;
+            left: -90px;
+        }
+
+        .container::after {
+            bottom: -90px;
+            right: -90px;
+        }
+
+        .title {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 10px;
+            font-family: 'Dancing Script', cursive;
+            color: #aa1f88;
+            letter-spacing: 0.05em;
+            text-shadow: 0 2px 8px rgba(170, 31, 136, 0.35);
+            position: relative;
+        }
+
+        .title::before,
+        .title::after {
+            content: '';
+            display: block;
+            width: 140px;
+            height: 4px;
+            margin: 14px auto 0;
+            border-radius: 999px;
+            background: linear-gradient(90deg, rgba(218, 72, 157, 0.75), rgba(255, 208, 235, 0.2), rgba(218, 72, 157, 0.75));
+        }
+
+        .title::before {
+            margin-bottom: 8px;
+            width: 120px;
+            opacity: 0.75;
+        }
+
+        .title::after {
+            width: 100px;
+            opacity: 0.5;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 1.1rem;
+            color: #7a5a8c;
+            margin-bottom: 30px;
+            letter-spacing: 0.02em;
+            position: relative;
+        }
+
+        .subtitle::after {
+            content: '✿ ✦ ✿';
+            display: block;
+            font-size: 1.1rem;
+            color: #d79ac2;
+            margin: 14px auto 0;
+            letter-spacing: 0.35em;
+            opacity: 0.8;
+        }
+
+        .content {
+            line-height: 1.7;
+            font-size: 1.05rem;
+        }
+
+        .highlight {
+            color: #d86db8;
+            font-weight: 600;
+        }
+
+        .details {
+            margin: 24px 0;
+            padding: 24px 22px;
+            background: linear-gradient(160deg, #fff4ff, #f5e5fc);
+            border: 1px solid rgba(217, 109, 184, 0.18);
+            border-radius: 22px;
+            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.8);
+        }
+
+        .details p {
+            margin: 10px 0;
+        }
+
+        .card-image {
+            width: 100%;
+            max-width: 560px;
+            margin: 0 auto 24px;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.12);
+        }
+
+        .card-image img {
+            width: 100%;
+            display: block;
+            object-fit: cover;
+            height: 280px;
+        }
+
+        .hero-name {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.65rem;
+            color: #b4347c;
+            text-align: center;
+            margin: 16px auto 6px;
+            letter-spacing: 0.02em;
+        }
+
+        .hero-subtitle {
+            text-align: center;
+            font-size: 1rem;
+            color: #7a5a8c;
+            margin-bottom: 20px;
+            opacity: 0.88;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.95rem;
+            color: #6c4b84;
+        }
+
+        .flower-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            pointer-events: none;
+        }
+
+        .flower-bar svg {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
+
+        .top-right-mini-image {
+            position: absolute;
+            top: 22px;
+            right: 24px;
+            width: 90px;
+            height: 90px;
+            border-radius: 18px;
+            overflow: hidden;
+            transform: rotate(-40deg);
+            box-shadow: 0 18px 34px rgba(0, 0, 0, 0.18);
+            border: 3px solid rgba(255, 255, 255, 0.9);
+            background: #fff;
+            z-index: 1;
+        }
+
+        .top-right-mini-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .bottom-left-mini-image {
+            position: absolute;
+            bottom: -130px;
+            left: 22px;
+            width: 90px;
+            height: 90px;
+            border-radius: 18px;
+            overflow: hidden;
+            transform: rotate(35deg);
+            box-shadow: 0 18px 34px rgba(0, 0, 0, 0.18);
+            border: 3px solid rgba(255, 255, 255, 0.9);
+            background: #fff;
+            z-index: 1;
+        }
+
+        .bottom-left-mini-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .flower-icon {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            pointer-events: none;
+        }
+
+        .flower-icon:nth-child(1) {
+            top: 20px;
+            left: 40px;
+        }
+
+        .flower-icon:nth-child(2) {
+            top: 10px;
+            left: 140px;
+        }
+
+        .flower-icon:nth-child(3) {
+            top: 28px;
+            left: 260px;
+        }
+
+        .flower-icon:nth-child(4) {
+            top: 12px;
+            left: 360px;
+        }
+
+        .flower-icon:nth-child(5) {
+            top: 18px;
+            left: 500px;
+        }
+
+        .flower-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .button-wrapper {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-6px);
+            }
+
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes flicker {
+            0% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            50% {
+                opacity: 0.7;
+                transform: translateY(-1px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .open-decor {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 18px;
+            margin-bottom: 18px;
+            opacity: 0.95;
+        }
+
+        .open-decor svg {
+            width: 64px;
+            height: 64px;
+        }
+
+        .open-decor .cake {
+            filter: drop-shadow(0 8px 18px rgba(218, 74, 168, 0.2));
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .open-decor .candle {
+            filter: drop-shadow(0 8px 18px rgba(255, 175, 85, 0.2));
+            animation: float 3.5s ease-in-out infinite;
+        }
+
+        .open-decor .flame {
+            animation: flicker 0.4s ease-in-out infinite;
+        }
+
+        .flower-icon {
+            position: absolute;
+            width: 80px;
+            height: 80px;
+            pointer-events: none;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        .flower-icon:nth-child(2) {
+            animation-duration: 7.2s;
+        }
+
+        .flower-icon:nth-child(3) {
+            animation-duration: 8.4s;
+        }
+
+        .flower-icon:nth-child(4) {
+            animation-duration: 7.6s;
+        }
+
+        .flower-icon:nth-child(5) {
+            animation-duration: 8.8s;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .open-button {
+            display: inline-block;
+            margin: 0 auto 30px auto;
+            padding: 14px 30px;
+            border: none;
+            border-radius: 999px;
+            background: #d86db8;
+            color: #fff;
+            font-size: 1rem;
+            cursor: pointer;
+            box-shadow: 0 10px 24px rgba(216, 109, 184, 0.25);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            position: relative;
+        }
+
+        .open-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 14px 30px rgba(216, 109, 184, 0.3);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="flower-bar" aria-hidden="true">
+            <!-- Ảnh 1: mini góc trên phải -->
+            <div class="top-right-mini-image">
+                <img id="image-1" src="https://via.placeholder.com/180x180.png?text=Mini"
+                    alt="Ảnh 1: mini góc trên phải" />
+            </div>
+            <!-- Ảnh 2: mini góc dưới trái -->
+            <div class="bottom-left-mini-image">
+                <img id="image-2" src="https://via.placeholder.com/180x180.png?text=Mini"
+                    alt="Ảnh 2: mini góc dưới trái" />
+            </div>
+            <div class="flower-icon">
+                <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="32" cy="34" r="6" fill="#ffd1ae" />
+                    <path d="M32 12c-3 0-8 3-10 8-2 5 0 10 5 12 5 2 12 0 14-5 2-5 0-10-4-13-1-1-3-2-5-2z"
+                        fill="#ffb6d5" />
+                    <path d="M42 22c4 3 5 10 2 14-3 4-8 5-12 2-3-3-4-8-2-12 3-4 10-5 12-4z" fill="#ff8bbd"
+                        opacity="0.9" />
+                    <path d="M24 20c-4 2-7 7-6 12 1 5 5 8 10 8 4 0 8-3 10-7 2-5 0-11-5-13-4-2-7-1-9 0z" fill="#ffdaf1"
+                        opacity="0.8" />
+                </svg>
+            </div>
+            <div class="flower-icon">
+                <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="32" cy="34" r="5" fill="#fff7e6" />
+                    <path d="M32 14c-4 0-8 6-8 10s4 10 8 10 8-6 8-10-4-10-8-10z" fill="#f9d1c4" />
+                    <path d="M20 20c-1 5 2 10 7 12 5 2 11 0 14-4 3-4 3-10 0-14-3-4-9-4-12-1-1 1-2 3-3 5-2-1-5-1-6 2z"
+                        fill="#ffb0d3" opacity="0.9" />
+                    <path d="M15 34c0 0 4 8 13 8 9 0 13-8 13-8s-4-8-13-8c-9 0-13 8-13 8z" fill="#ffccd7"
+                        opacity="0.6" />
+                </svg>
+            </div>
+            <div class="flower-icon">
+                <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="32" cy="32" r="5" fill="#fff3d6" />
+                    <path d="M32 10c-5 0-10 4-12 8-2 4 0 9 4 12 4 3 10 4 14 1 4-3 6-8 5-13-1-5-5-8-11-8z"
+                        fill="#ffea9a" />
+                    <path d="M16 28c-1 4 2 9 6 11 4 2 8 1 11-2 3-3 4-8 3-12-2-4-6-6-10-5-4 1-8 3-10 8z" fill="#ffcc6f"
+                        opacity="0.85" />
+                    <path d="M44 42c-3 3-8 4-12 2-4-2-7-6-7-10 0-4 3-8 7-10 4-2 9-1 12 2 3 3 4 8 2 12-1 4-4 8-8 10z"
+                        fill="#ffdca3" opacity="0.7" />
+                </svg>
+            </div>
+            <div class="flower-icon">
+                <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="32" cy="32" r="5" fill="#ffe6ff" />
+                    <path d="M32 14c-5 2-10 6-12 11-2 5 1 11 6 13 5 2 11 0 14-5 3-5 2-11-2-15-4-4-9-5-12-4z"
+                        fill="#f8c0ff" />
+                    <path d="M18 26c-1 5 1 10 5 13 4 3 10 3 14 0 4-3 6-8 5-13-1-5-5-7-9-7-4 0-8 2-10 7z" fill="#ff9ae1"
+                        opacity="0.9" />
+                    <path d="M46 34c0 7-5 12-11 12s-11-5-11-12 5-12 11-12 11 5 11 12z" fill="#ffd6f7" opacity="0.7" />
+                </svg>
+            </div>
+            <div class="flower-icon">
+                <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="32" cy="32" r="6" fill="#ffd7d8" />
+                    <path d="M32 12c-3 0-8 3-10 7-2 4-1 9 2 13 3 4 7 5 11 4 4-1 7-4 9-8 2-4 1-9-2-13-3-4-7-7-10-7z"
+                        fill="#ff8fb6" opacity="0.95" />
+                    <path d="M18 29c-1 4 0 8 3 11 3 3 7 4 11 3 4-1 7-4 9-8 2-4 2-8-1-12-3-4-8-5-12-4-4 1-7 4-10 10z"
+                        fill="#ffcfde" opacity="0.75" />
+                </svg>
+            </div>
+        </div>
+        <div class="button-wrapper">
+            <div class="open-decor" aria-hidden="true">
+                <svg class="cake" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="10" y="28" width="44" height="20" rx="8" fill="#ffd4a8" />
+                    <path d="M12 30h40v12a6 6 0 0 1-6 6H18a6 6 0 0 1-6-6V30z" fill="#ffb976" />
+                    <rect x="24" y="16" width="16" height="16" rx="6" fill="#fff2e1" />
+                    <path d="M32 12c-1.6 0-3 1.4-3 3v3h6v-3c0-1.6-1.4-3-3-3z" fill="#ff7aa5" />
+                    <path d="M28 18c0 2 2 4 4 4s4-2 4-4" fill="none" stroke="#ff7aa5" stroke-width="2"
+                        stroke-linecap="round" />
+                </svg>
+                <svg class="candle" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M30 18c0-4 4-8 4-8s4 4 4 8c0 4-2 6-4 6s-4-2-4-6z" fill="#ffd27a" />
+                    <rect x="27" y="24" width="10" height="22" rx="4" fill="#ff8b8b" />
+                    <path d="M29 32h6v8h-6z" fill="#fff1c3" opacity="0.8" />
+                    <path class="flame" d="M32 10c-3 0-5 4-5 6c0 3 2 5 5 5s5-2 5-5c0-2-2-6-5-6z" fill="#ffac3d" />
+                </svg>
+            </div>
+            <button class="open-button" id="openCard">Mở thiệp</button>
+        </div>
+        <div class="title hidden" id="cardTitle">Thư mời sinh nhật</div>
+        <div class="subtitle hidden" id="cardSubtitle">Tớ rất mong bạn có thể đến chung vui cùng tớ!</div>
+        <div class="content hidden" id="cardContent">
+            <!-- Ảnh 3: ảnh lớn chính -->
+            <div class="card-image">
+                <img id="image-3" src="https://via.placeholder.com/900x400.png?text=Hinh+anh+sinh+nhat"
+                    alt="Ảnh 3: hình ảnh sinh nhật lớn" />
+            </div>
+            <div class="hero-name">Nhân vật chính: Lê Thị Linh</div>
+            <div class="hero-subtitle">Người bạn đặc biệt của tớ, luôn là tâm điểm của buổi tiệc.</div>
+            <p>Nhân dịp sinh nhật của bạn thân yêu, tớ xin trân trọng mời bạn tới buổi tiệc ấm áp và vui vẻ cùng gia
+                đình, bạn bè.</p>
+            <p>Đây là cơ hội để chúng ta cùng nhau chia sẻ nụ cười, niềm vui và những khoảnh khắc đáng nhớ.</p>
+            <div class="details">
+                <p><strong>Ngày:</strong> Chủ nhật, 10 tháng 8 năm 2026</p>
+                <p><strong>Giờ:</strong> 18:30</p>
+                <p><strong>Địa điểm:</strong> </p>
+                <p><strong>Ghi chú:</strong> Mang theo tâm trạng thật vui và một nụ cười rạng rỡ nhé!</p>
+            </div>
+            <p class="highlight">Bạn là phần quan trọng trong ngày đặc biệt này, tớ rất mong chờ sự có mặt của bạn!</p>
+        </div>
+        <div class="footer hidden" id="cardFooter">Thân mến, <br> Người bạn của bạn</div>
+    </div>
+    <script>
+        document.getElementById('openCard').addEventListener('click', function () {
+            document.getElementById('openCard').classList.add('hidden');
+            document.getElementById('cardTitle').classList.remove('hidden');
+            document.getElementById('cardSubtitle').classList.remove('hidden');
+            document.getElementById('cardContent').classList.remove('hidden');
+            document.getElementById('cardFooter').classList.remove('hidden');
+        });
+    </script>
+</body>
+
+</html>
