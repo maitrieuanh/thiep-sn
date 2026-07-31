@@ -557,6 +557,8 @@
         const toggleCardButton = document.getElementById('toggleCard');
         const cardSections = ['cardTitle', 'cardSubtitle', 'cardContent', 'cardFooter'];
         let isOpen = false;
+        let audio = null;
+        let isMusicPlaying = false;
 
         function updateCardState() {
             toggleCardButton.textContent = isOpen ? 'Đóng thiệp' : 'Mở thiệp';
@@ -566,10 +568,39 @@
             });
         }
 
+        function stopMusic() {
+            if (audio) {
+                audio.pause();
+                audio.currentTime = 0;
+            }
+        }
+
+        function toggleMusic() {
+            if (!audio) {
+                audio = new Audio('muisic/nastelbom-happy-birthday-471481.mp3');
+                audio.loop = true;
+                audio.volume = 0.5;
+            }
+
+            if (!isMusicPlaying) {
+                isMusicPlaying = true;
+                audio.play().catch(function () {
+                    isMusicPlaying = false;
+                });
+            }
+        }
+
         toggleCardButton.addEventListener('click', function () {
             isOpen = !isOpen;
             updateCardState();
+            toggleMusic();
         });
+
+        document.addEventListener('click', function () {
+            if (!isMusicPlaying) {
+                toggleMusic();
+            }
+        }, { once: true });
 
         updateCardState();
     </script>
